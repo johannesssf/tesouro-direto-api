@@ -1,0 +1,113 @@
+#%RAML 1.0
+title: Tesouro Direto API
+version: v1
+mediaType: application/json
+baseUri: http://localhost:8000/api/v1
+
+/treasure-titles:
+  description: All treasure titles available.
+  get:
+    queryParameters:
+      action?:
+        enum: [invest, redeem]
+        description: |
+          Use the 'action' parameter to get a specific group of titles 'to invest' or 'to redeem',
+          if the parameter is omitted all titles will be returned.
+    responses:
+      200:
+        body:
+          type: ResponseData
+          examples:
+            FullList:
+              last_update: 2021-03-03T15:21:00
+              invest:
+                [
+                  {
+                      name: TESOURO PREFIXADO 2024,
+                      annual_profitability: 7.47,
+                      minimum_investment: 31.51,
+                      unit_price: 787.86,
+                      due_date: 2024-07-01
+                  },
+                  {
+                    name: TESOURO PREFIXADO 2026,
+                    annual_profitability: 8.06,
+                    minimum_investment: 34.38,
+                    unit_price: 687.73,
+                    due_date: 2026-01-01
+                  },
+                ]
+              redeem:
+                [
+                  {
+                    name: Tesouro Selic 2023,
+                    annual_profitability: 0.15,
+                    unit_price: 10761.91,
+                    due_date: 2023-03-01
+                  },
+                  {
+                    name: Tesouro Prefixado 2024,
+                    annual_profitability: 7.59,
+                    unit_price: 784,96,
+                    due_date: 2024-07-01
+                  },
+                ]
+            InvestOnly:
+              last_update: 2021-03-03T15:21:00
+              invest:
+                [
+                  {
+                      name: TESOURO PREFIXADO 2024,
+                      annual_profitability: 7.47,
+                      minimum_investment: 31.51,
+                      unit_price: 787.86,
+                      due_date: 2024-07-01
+                  },
+                  {
+                    name: TESOURO PREFIXADO 2026,
+                    annual_profitability: 8.06,
+                    minimum_investment: 34.38,
+                    unit_price: 687.73,
+                    due_date: 2026-01-01
+                  },
+                ]
+            RedeemOnly:
+              last_update: 2021-03-03T15:21:00
+              redeem:
+                [
+                  {
+                    name: Tesouro Selic 2023,
+                    annual_profitability: 0.15,
+                    unit_price: 10761.91,
+                    due_date: 2023-03-01
+                  },
+                  {
+                    name: Tesouro Prefixado 2024,
+                    annual_profitability: 7.59,
+                    unit_price: 784,96,
+                    due_date: 2024-07-01
+                  },
+                ]
+
+types:
+  TreasuryTitle:
+    type: object
+    properties:
+      name: string
+      annual_profitability:
+        type: number
+        format: float
+      minimum_investment?:
+        type: number
+        format: float
+      unit_price:
+        type: number
+        format: float
+      due_date: date-only
+
+  ResponseData:
+    type: object
+    properties:
+      last_update: datetime-only
+      invest?: TreasuryTitle[]
+      redeem?: TreasuryTitle[]
