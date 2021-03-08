@@ -1,14 +1,8 @@
 # tesouro-direto-api
 
-# Estrutura da informação do Título
-    /investir:
-    /resgatar:
-        Nome do título
-        Rentabilidade anual
-        Investimento mínimo (opcional, será usado na operação investir)
-        Preço Unitário
-        Vencimento
-        Tipo [prefixado, selic, ipca, igpm]
+REST API that can be used to retrieve information about the Brazilian Treasure Titles.
 
 
-http://tesouro-direto-api.com/api/v1/treasure-titles
+# API documentation
+
+Click [here](https://johannesssf.github.io/tesouro-direto-api/).
