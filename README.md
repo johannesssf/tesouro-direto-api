@@ -1,6 +1,6 @@
 # tesouro-direto-api
 
-REST API that can be used to retrieve information about the Brazilian Treasure Titles.
+REST API that can be used to retrieve information about Brazilian Treasure Titles.
 
 # Project dependencies
 
