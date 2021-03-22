@@ -32,7 +32,10 @@ def get_last_content_update_date(bs: BeautifulSoup) -> datetime:
     last_update_tag = bs.find("main").find(
         "span", attrs={"class": "text-xs text-gray-600"}
     )
-    res = re.search(r"\d{1,2}/\d{1,2}/\d{2,4} \d{1,2}:\d{1,2}", last_update_tag.text)
+    res = re.search(
+        r"\d{1,2}/\d{1,2}/\d{2,4} \d{1,2}:\d{1,2}",
+        last_update_tag.text,
+    )
 
     return datetime.strptime(res.group(), "%d/%m/%Y %H:%M")
 
@@ -75,8 +78,11 @@ def get_titles_to_redeem_data(bs: BeautifulSoup) -> list:
     return titles
 
 
-def get_titles_full_list(bs: BeautifulSoup) -> dict:
+def get_titles_full_list() -> dict:
     """Get a list with all available titles."""
+    raw_data = get_html_from_url(URL)
+    html = extract_body_content(raw_data)
+    bs = create_beautiful_soup_from_html(html)
     invest = get_titles_to_invest_data(bs)
     redeem = get_titles_to_redeem_data(bs)
     return {'invest': invest, 'redeem': redeem}
